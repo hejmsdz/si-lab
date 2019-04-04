@@ -22,7 +22,7 @@ public class Student {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
-        grades = new ArrayList<>()
+        grades = new ArrayList<>();
     }
 
     public long getIndex() {
