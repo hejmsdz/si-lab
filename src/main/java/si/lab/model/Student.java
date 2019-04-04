@@ -1,6 +1,7 @@
 package si.lab.model;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -57,6 +58,7 @@ public class Student {
         this.birthDate = birthDate;
     }
 
+    @XmlTransient
     public List<Grade> getGrades() {
         return grades;
     }
