@@ -13,6 +13,13 @@ public class Grade {
     public Grade() {
     }
 
+    public Grade(int id, Score score, Date insertedAt, Course course) {
+        this.id = id;
+        this.score = score;
+        this.insertedAt = insertedAt;
+        this.course = course;
+    }
+
     public int getId() {
         return id;
     }

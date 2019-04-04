@@ -17,6 +17,14 @@ public class Student {
         grades = new ArrayList<>();
     }
 
+    public Student(long index, String firstName, String lastName, Date birthDate) {
+        this.index = index;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
+        grades = new ArrayList<>()
+    }
+
     public long getIndex() {
         return index;
     }
