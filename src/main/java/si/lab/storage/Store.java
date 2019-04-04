@@ -4,13 +4,11 @@ import si.lab.model.Course;
 import si.lab.model.Grade;
 import si.lab.model.Student;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class Store {
     private static Store ourInstance = new Store();
-    private List<Student> students;
+    private Map<Long, Student> students;
     private List<Course> courses;
 
     public static Store getInstance() {
@@ -18,17 +16,21 @@ public class Store {
     }
 
     private Store() {
-        students = new ArrayList<>();
+        students = new HashMap<>();
         courses = new ArrayList<>();
         seed();
     }
 
-    public List<Student> getStudents() {
-        return students;
+    public Collection<Student> getStudents() {
+        return students.values();
     }
 
     public List<Course> getCourses() {
         return courses;
+    }
+
+    public void addStudent(Student student) {
+        students.put(student.getIndex(), student);
     }
 
     private void seed() {
@@ -36,9 +38,9 @@ public class Store {
         Student student2 = new Student(534817, "Antwan", "Reinger", new Date(1951, 5, 19));
         Student student3 = new Student(534818, "Sharon" ,"Gleason", new Date(1946, 4, 15));
 
-        students.add(student1);
-        students.add(student2);
-        students.add(student3);
+        addStudent(student1);
+        addStudent(student2);
+        addStudent(student3);
 
         Course course1 = new Course(1, "Distributed systems", "Adeline Boyle");
         Course course2 = new Course(2, "Machine learning", "Urban Satterfield");
