@@ -1,6 +1,7 @@
 package si.lab.model;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,6 +14,7 @@ public class Student {
     private List<Grade> grades;
 
     public Student() {
+        grades = new ArrayList<>();
     }
 
     public long getIndex() {
