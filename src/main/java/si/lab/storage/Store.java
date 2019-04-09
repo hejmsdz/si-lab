@@ -30,10 +30,10 @@ public class Store {
     }
 
     public Course getCourse(int id) {
-        if (courses.size() <= id) {
-            return null;
-        }
-        return courses.get(id);
+        return courses.stream()
+                .filter(course -> course.getId() == id)
+                .findFirst()
+                .orElse(null);
     }
 
     public void addStudent(Student student) {
@@ -72,9 +72,9 @@ public class Store {
         addStudent(student2);
         addStudent(student3);
 
-        Course course1 = new Course(0, "Distributed systems", "Adeline Boyle");
-        Course course2 = new Course(1, "Machine learning", "Urban Satterfield");
-        Course course3 = new Course(2, "Optimization techniques", "Velva Parker");
+        Course course1 = new Course(1, "Distributed systems", "Adeline Boyle");
+        Course course2 = new Course(2, "Machine learning", "Urban Satterfield");
+        Course course3 = new Course(3, "Optimization techniques", "Velva Parker");
 
         courses.add(course1);
         courses.add(course2);
