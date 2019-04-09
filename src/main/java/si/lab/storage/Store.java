@@ -25,7 +25,7 @@ public class Store {
         return students.values();
     }
 
-    public List<Course> getCourses() {
+    public Collection<Course> getCourses() {
         return courses;
     }
 
