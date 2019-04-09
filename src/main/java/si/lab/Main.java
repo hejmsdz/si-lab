@@ -3,6 +3,7 @@ package si.lab;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
+import si.lab.rest.CourseResource;
 import si.lab.rest.CoursesCollection;
 import si.lab.rest.StudentResource;
 import si.lab.rest.StudentsCollection;
@@ -16,7 +17,8 @@ public class Main {
         ResourceConfig config = new ResourceConfig(
                 StudentsCollection.class,
                 StudentResource.class,
-                CoursesCollection.class
+                CoursesCollection.class,
+                CourseResource.class
         );
         HttpServer server = GrizzlyHttpServerFactory.createHttpServer(baseUri, config);
     }
