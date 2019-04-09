@@ -16,7 +16,8 @@ public class Main {
                 StudentResource.class,
                 CoursesCollection.class,
                 CourseResource.class,
-                StudentGradesCollection.class
+                StudentGradesCollection.class,
+                StudentGradeResource.class
         );
         HttpServer server = GrizzlyHttpServerFactory.createHttpServer(baseUri, config);
     }

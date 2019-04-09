@@ -52,6 +52,17 @@ public class Store {
         return student.getGrades();
     }
 
+    public Grade getStudentGrade(long index, int id) {
+        Collection<Grade> grades = getStudentGrades(index);
+        if (grades == null) {
+            return null;
+        }
+        return grades.stream()
+                .filter(grade -> grade.getId() == id)
+                .findFirst()
+                .orElse(null);
+    }
+
     private void seed() {
         Student student1 = new Student(534816, "Herminia", "Schowalter", new Date(1957, 11, 11));
         Student student2 = new Student(534817, "Antwan", "Reinger", new Date(1951, 5, 19));
