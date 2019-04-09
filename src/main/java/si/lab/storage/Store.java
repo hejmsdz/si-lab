@@ -44,6 +44,14 @@ public class Store {
         return students.get(index);
     }
 
+    public Collection<Grade> getStudentGrades(long index) {
+        Student student = getStudent(index);
+        if (student == null) {
+            return null;
+        }
+        return student.getGrades();
+    }
+
     private void seed() {
         Student student1 = new Student(534816, "Herminia", "Schowalter", new Date(1957, 11, 11));
         Student student2 = new Student(534817, "Antwan", "Reinger", new Date(1951, 5, 19));
@@ -62,9 +70,9 @@ public class Store {
         courses.add(course3);
 
         student1.getGrades().add(new Grade(1, Grade.Score.B, new Date(), course1));
-        student2.getGrades().add(new Grade(1, Grade.Score.A, new Date(), course1));
-        student2.getGrades().add(new Grade(1, Grade.Score.D, new Date(), course2));
-        student3.getGrades().add(new Grade(1, Grade.Score.C, new Date(), course2));
-        student3.getGrades().add(new Grade(1, Grade.Score.F, new Date(), course3));
+        student2.getGrades().add(new Grade(2, Grade.Score.A, new Date(), course1));
+        student2.getGrades().add(new Grade(3, Grade.Score.D, new Date(), course2));
+        student3.getGrades().add(new Grade(4, Grade.Score.C, new Date(), course2));
+        student3.getGrades().add(new Grade(5, Grade.Score.F, new Date(), course3));
     }
 }
