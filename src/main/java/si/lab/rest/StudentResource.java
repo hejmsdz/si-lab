@@ -16,5 +16,10 @@ public class StudentResource {
         }
         return student;
     }
+
+    @DELETE
+    public void delete(@PathParam("index") long index) {
+        Store.getInstance().deleteStudent(index);
+    }
 }
 

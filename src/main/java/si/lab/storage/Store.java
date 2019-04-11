@@ -50,6 +50,10 @@ public class Store {
         students.put(student.getIndex(), student);
     }
 
+    public void deleteStudent(long index) {
+        students.remove(index);
+    }
+
     public Student getStudent(long index) {
         return students.get(index);
     }
