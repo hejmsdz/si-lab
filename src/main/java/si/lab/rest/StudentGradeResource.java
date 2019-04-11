@@ -22,7 +22,11 @@ public class StudentGradeResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Grade update(@PathParam("index") long index, @PathParam("id") int id, Grade newGrade) {
-        return Store.getInstance().updateStudentGrade(index, id, newGrade);
+        Grade grade = Store.getInstance().updateStudentGrade(index, id, newGrade);
+        if (grade == null) {
+            throw new NotFoundException();
+        }
+        return grade;
     }
 
     @DELETE

@@ -22,7 +22,11 @@ public class StudentResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Student update(@PathParam("index") long index, Student newStudent) {
-        return Store.getInstance().updateStudent(index, newStudent);
+        Student student = Store.getInstance().updateStudent(index, newStudent);
+        if (student == null) {
+            throw new NotFoundException();
+        }
+        return student;
     }
 
     @DELETE

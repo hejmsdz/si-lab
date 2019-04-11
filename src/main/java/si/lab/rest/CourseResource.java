@@ -22,7 +22,11 @@ public class CourseResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Course update(@PathParam("id") int id, Course newCourse) {
-        return Store.getInstance().updateCourse(id, newCourse);
+        Course course = Store.getInstance().updateCourse(id, newCourse);
+        if (course == null) {
+            throw new NotFoundException();
+        }
+        return course;
     }
 
     @DELETE
