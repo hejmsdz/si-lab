@@ -9,7 +9,7 @@ import javax.ws.rs.core.MediaType;
 @Path("courses/{id}")
 public class CourseResource {
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Course get(@PathParam("id") int id) {
         Course course = Store.getInstance().getCourse(id);
         if (course == null) {
@@ -19,8 +19,8 @@ public class CourseResource {
     }
 
     @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Course update(@PathParam("id") int id, Course newCourse) {
         Course course = Store.getInstance().updateCourse(id, newCourse);
         if (course == null) {

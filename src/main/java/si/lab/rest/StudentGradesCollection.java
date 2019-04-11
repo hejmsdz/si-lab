@@ -14,7 +14,7 @@ import java.util.Collection;
 @Path("students/{index}/grades")
 public class StudentGradesCollection {
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Collection<Grade> get(@PathParam("index") long index) {
         Collection<Grade> grades = Store.getInstance().getStudentGrades(index);
         if (grades == null) {
@@ -24,7 +24,7 @@ public class StudentGradesCollection {
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response create(@PathParam("index") long index, Grade grade) {
         Grade insertedGrade = Store.getInstance().addStudentGrade(index, grade);
         if (insertedGrade == null) {

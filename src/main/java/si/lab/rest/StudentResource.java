@@ -19,8 +19,8 @@ public class StudentResource {
     }
 
     @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Student update(@PathParam("index") long index, Student newStudent) {
         Student student = Store.getInstance().updateStudent(index, newStudent);
         if (student == null) {

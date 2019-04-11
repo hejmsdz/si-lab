@@ -13,13 +13,13 @@ import java.util.Collection;
 @Path("courses")
 public class CoursesCollection {
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Collection<Course> get() {
         return Store.getInstance().getCourses();
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response create(Course course) {
         Store.getInstance().addCourse(course);
         URI location = UriBuilder.fromResource(CourseResource.class)

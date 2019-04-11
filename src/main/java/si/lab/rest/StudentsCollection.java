@@ -17,7 +17,7 @@ public class StudentsCollection {
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response create(Student student) {
         Store.getInstance().addStudent(student);
         URI location = UriBuilder.fromResource(StudentResource.class)
