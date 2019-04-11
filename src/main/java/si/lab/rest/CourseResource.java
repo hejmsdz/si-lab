@@ -16,5 +16,10 @@ public class CourseResource {
         }
         return course;
     }
+
+    @DELETE
+    public void delete(@PathParam("id") int id) {
+        Store.getInstance().deleteCourse(id);
+    }
 }
 
