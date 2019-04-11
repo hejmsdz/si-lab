@@ -37,6 +37,7 @@ public class Store {
     }
 
     public void addCourse(Course course) {
+        course.setId(courses.size() + 1);
         courses.add(course);
     }
 
@@ -57,6 +58,7 @@ public class Store {
     }
 
     public void addStudent(Student student) {
+        student.setIndex(students.keySet().stream().reduce(Long::max).orElse(0L) + 1L);
         students.put(student.getIndex(), student);
     }
 
@@ -98,9 +100,14 @@ public class Store {
                 .orElse(null);
     }
 
-    public void addStudentGrade(long index, Grade grade) {
+    public Grade addStudentGrade(long index, Grade grade) {
         Collection<Grade> grades = getStudentGrades(index);
+        if (grades == null) {
+            return null;
+        }
+        grade.setId(grades.size() + 1);
         grades.add(grade);
+        return grade;
     }
 
     public void addStudentGrade(Student student, Grade grade) {

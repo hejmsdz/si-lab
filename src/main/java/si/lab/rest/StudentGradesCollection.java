@@ -26,7 +26,10 @@ public class StudentGradesCollection {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(@PathParam("index") long index, Grade grade) {
-        Store.getInstance().addStudentGrade(index, grade);
+        Grade insertedGrade = Store.getInstance().addStudentGrade(index, grade);
+        if (insertedGrade == null) {
+            throw new NotFoundException();
+        }
         URI location = UriBuilder.fromResource(StudentGradeResource.class)
                 .resolveTemplate("index", index)
                 .resolveTemplate("id", grade.getId())
