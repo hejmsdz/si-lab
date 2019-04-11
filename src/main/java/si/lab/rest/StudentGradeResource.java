@@ -4,6 +4,7 @@ import si.lab.model.Grade;
 import si.lab.storage.Store;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 
 @Path("students/{index}/grades/{id}")
 public class StudentGradeResource {
@@ -15,5 +16,10 @@ public class StudentGradeResource {
             throw new NotFoundException();
         }
         return grade;
+    }
+
+    @DELETE
+    public void delete(@PathParam("index") long index, @PathParam("id") int id) {
+        Store.getInstance().deleteStudentGrade(index, id);
     }
 }
