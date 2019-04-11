@@ -1,6 +1,9 @@
 package si.lab.model;
 
+import si.lab.storage.Store;
+
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.Date;
 
 @XmlRootElement
@@ -50,6 +53,15 @@ public class Grade {
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    @XmlTransient
+    public int getCourseId() {
+        return course.getId();
+    }
+
+    public void setCourseId(int id) {
+        this.course = Store.getInstance().getCourse(id);
     }
 
     public enum Score {
