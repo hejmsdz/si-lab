@@ -4,7 +4,8 @@ import si.lab.model.Student;
 import si.lab.storage.Store;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.*;
+import java.net.URI;
 import java.util.Collection;
 
 @Path("students")
@@ -17,7 +18,11 @@ public class StudentsCollection {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public void create(Student student) {
+    public Response create(Student student) {
         Store.getInstance().addStudent(student);
+        URI location = UriBuilder.fromResource(StudentResource.class)
+                .resolveTemplate("index", student.getIndex())
+                .build();
+        return Response.created(location).build();
     }
 }
