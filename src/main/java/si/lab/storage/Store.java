@@ -102,7 +102,7 @@ public class Store {
 
     public Grade addStudentGrade(long index, Grade grade) {
         Collection<Grade> grades = getStudentGrades(index);
-        if (grades == null) {
+        if (grades == null || grade.getCourse() == null) {
             return null;
         }
         grade.setId(grades.size() + 1);
@@ -110,8 +110,8 @@ public class Store {
         return grade;
     }
 
-    public void addStudentGrade(Student student, Grade grade) {
-        addStudentGrade(student.getIndex(), grade);
+    public Grade addStudentGrade(Student student, Grade grade) {
+        return addStudentGrade(student.getIndex(), grade);
     }
 
     public boolean deleteStudentGrade(long index, int id) {
