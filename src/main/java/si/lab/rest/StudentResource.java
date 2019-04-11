@@ -4,6 +4,7 @@ import si.lab.model.Student;
 import si.lab.storage.Store;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 
 @Path("students/{index}")
 public class StudentResource {
@@ -15,6 +16,13 @@ public class StudentResource {
             throw new NotFoundException();
         }
         return student;
+    }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Student update(@PathParam("index") long index, Student newStudent) {
+        return Store.getInstance().updateStudent(index, newStudent);
     }
 
     @DELETE

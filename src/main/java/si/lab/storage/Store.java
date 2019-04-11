@@ -50,6 +50,17 @@ public class Store {
         students.put(student.getIndex(), student);
     }
 
+    public Student updateStudent(long index, Student newStudent) {
+        Student student = getStudent(index);
+        if (student == null) {
+            return null;
+        }
+        student.setFirstName(newStudent.getFirstName());
+        student.setLastName(newStudent.getLastName());
+        student.setBirthDate(newStudent.getBirthDate());
+        return student;
+    }
+
     public void deleteStudent(long index) {
         students.remove(index);
     }
