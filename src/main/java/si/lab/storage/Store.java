@@ -111,6 +111,17 @@ public class Store {
         getStudentGrades(index).removeIf(grade -> grade.getId() == id);
     }
 
+    public Grade updateStudentGrade(long index, int id, Grade newGrade) {
+        Grade grade = getStudentGrade(index, id);
+        if (grade == null) {
+            return null;
+        }
+        grade.setScore(newGrade.getScore());
+        grade.setCourse(newGrade.getCourse());
+        grade.setInsertedAt(newGrade.getInsertedAt());
+        return grade;
+    }
+
     private void seed() {
         Student student1 = new Student(534816, "Herminia", "Schowalter", new Date(1957, 11, 11));
         Student student2 = new Student(534817, "Antwan", "Reinger", new Date(1951, 5, 19));

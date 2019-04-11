@@ -18,6 +18,13 @@ public class StudentGradeResource {
         return grade;
     }
 
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Grade update(@PathParam("index") long index, @PathParam("id") int id, Grade newGrade) {
+        return Store.getInstance().updateStudentGrade(index, id, newGrade);
+    }
+
     @DELETE
     public void delete(@PathParam("index") long index, @PathParam("id") int id) {
         Store.getInstance().deleteStudentGrade(index, id);

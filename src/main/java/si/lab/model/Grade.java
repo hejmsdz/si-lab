@@ -55,7 +55,6 @@ public class Grade {
         this.course = course;
     }
 
-    @XmlTransient
     public int getCourseId() {
         return course.getId();
     }
