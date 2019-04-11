@@ -36,6 +36,10 @@ public class Store {
                 .orElse(null);
     }
 
+    public void addCourse(Course course) {
+        courses.add(course);
+    }
+
     public void addStudent(Student student) {
         students.put(student.getIndex(), student);
     }
@@ -68,6 +72,10 @@ public class Store {
         grades.add(grade);
     }
 
+    public void addStudentGrade(Student student, Grade grade) {
+        addStudentGrade(student.getIndex(), grade);
+    }
+
     private void seed() {
         Student student1 = new Student(534816, "Herminia", "Schowalter", new Date(1957, 11, 11));
         Student student2 = new Student(534817, "Antwan", "Reinger", new Date(1951, 5, 19));
@@ -81,14 +89,14 @@ public class Store {
         Course course2 = new Course(2, "Machine learning", "Urban Satterfield");
         Course course3 = new Course(3, "Optimization techniques", "Velva Parker");
 
-        courses.add(course1);
-        courses.add(course2);
-        courses.add(course3);
+        addCourse(course1);
+        addCourse(course2);
+        addCourse(course3);
 
-        student1.getGrades().add(new Grade(1, Grade.Score.B, new Date(), course1));
-        student2.getGrades().add(new Grade(2, Grade.Score.A, new Date(), course1));
-        student2.getGrades().add(new Grade(3, Grade.Score.D, new Date(), course2));
-        student3.getGrades().add(new Grade(4, Grade.Score.C, new Date(), course2));
-        student3.getGrades().add(new Grade(5, Grade.Score.F, new Date(), course3));
+        addStudentGrade(student1, new Grade(1, Grade.Score.B, new Date(), course1));
+        addStudentGrade(student1, new Grade(2, Grade.Score.A, new Date(), course1));
+        addStudentGrade(student2, new Grade(3, Grade.Score.D, new Date(), course2));
+        addStudentGrade(student3, new Grade(4, Grade.Score.C, new Date(), course2));
+        addStudentGrade(student3, new Grade(5, Grade.Score.F, new Date(), course3));
     }
 }
