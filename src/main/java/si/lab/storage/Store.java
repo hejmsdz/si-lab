@@ -63,6 +63,11 @@ public class Store {
                 .orElse(null);
     }
 
+    public void addStudentGrade(long index, Grade grade) {
+        Collection<Grade> grades = getStudentGrades(index);
+        grades.add(grade);
+    }
+
     private void seed() {
         Student student1 = new Student(534816, "Herminia", "Schowalter", new Date(1957, 11, 11));
         Student student2 = new Student(534817, "Antwan", "Reinger", new Date(1951, 5, 19));
