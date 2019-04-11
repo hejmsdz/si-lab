@@ -40,6 +40,16 @@ public class Store {
         courses.add(course);
     }
 
+    public Course updateCourse(int id, Course newCourse) {
+        Course course = getCourse(id);
+        if (course == null) {
+            return null;
+        }
+        course.setName(newCourse.getName());
+        course.setTeacher(newCourse.getTeacher());
+        return course;
+    }
+
     public void deleteCourse(int id) {
         students.values()
                 .forEach(student -> student.getGrades().removeIf(grade -> grade.getCourse().getId() == id));

@@ -4,6 +4,7 @@ import si.lab.model.Course;
 import si.lab.storage.Store;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 
 @Path("courses/{id}")
 public class CourseResource {
@@ -15,6 +16,13 @@ public class CourseResource {
             throw new NotFoundException();
         }
         return course;
+    }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Course update(@PathParam("id") int id, Course newCourse) {
+        return Store.getInstance().updateCourse(id, newCourse);
     }
 
     @DELETE
