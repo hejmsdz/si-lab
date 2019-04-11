@@ -9,7 +9,7 @@ import javax.ws.rs.core.MediaType;
 @Path("students/{index}")
 public class StudentResource {
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Student get(@PathParam("index") long index) {
         Student student = Store.getInstance().getStudent(index);
         if (student == null) {
@@ -31,7 +31,10 @@ public class StudentResource {
 
     @DELETE
     public void delete(@PathParam("index") long index) {
-        Store.getInstance().deleteStudent(index);
+
+        if (!Store.getInstance().deleteStudent(index)) {
+            throw new NotFoundException();
+        }
     }
 }
 

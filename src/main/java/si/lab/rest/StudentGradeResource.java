@@ -31,6 +31,8 @@ public class StudentGradeResource {
 
     @DELETE
     public void delete(@PathParam("index") long index, @PathParam("id") int id) {
-        Store.getInstance().deleteStudentGrade(index, id);
+        if (!Store.getInstance().deleteStudentGrade(index, id)) {
+            throw new NotFoundException();
+        }
     }
 }

@@ -51,10 +51,10 @@ public class Store {
         return course;
     }
 
-    public void deleteCourse(int id) {
+    public boolean deleteCourse(int id) {
         students.values()
                 .forEach(student -> student.getGrades().removeIf(grade -> grade.getCourse().getId() == id));
-        courses.removeIf(course -> course.getId() == id);
+        return courses.removeIf(course -> course.getId() == id);
     }
 
     public void addStudent(Student student) {
@@ -73,8 +73,8 @@ public class Store {
         return student;
     }
 
-    public void deleteStudent(long index) {
-        students.remove(index);
+    public boolean deleteStudent(long index) {
+        return students.remove(index) != null;
     }
 
     public Student getStudent(long index) {
@@ -114,8 +114,8 @@ public class Store {
         addStudentGrade(student.getIndex(), grade);
     }
 
-    public void deleteStudentGrade(long index, int id) {
-        getStudentGrades(index).removeIf(grade -> grade.getId() == id);
+    public boolean deleteStudentGrade(long index, int id) {
+        return getStudentGrades(index).removeIf(grade -> grade.getId() == id);
     }
 
     public Grade updateStudentGrade(long index, int id, Grade newGrade) {

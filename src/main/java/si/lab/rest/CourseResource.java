@@ -31,7 +31,9 @@ public class CourseResource {
 
     @DELETE
     public void delete(@PathParam("id") int id) {
-        Store.getInstance().deleteCourse(id);
+        if (!Store.getInstance().deleteCourse(id)) {
+            throw new NotFoundException();
+        }
     }
 }
 
