@@ -13,7 +13,7 @@ import java.util.Collection;
 @Path("courses")
 public class CoursesCollection {
     @GET
-    @Produces("application/json")
+    @Produces(MediaType.APPLICATION_JSON)
     public Collection<Course> get() {
         return Store.getInstance().getCourses();
     }

@@ -9,7 +9,7 @@ import javax.ws.rs.core.MediaType;
 @Path("students/{index}/grades/{id}")
 public class StudentGradeResource {
     @GET
-    @Produces("application/json")
+    @Produces(MediaType.APPLICATION_JSON)
     public Grade get(@PathParam("index") long index, @PathParam("id") int id) {
         Grade grade = Store.getInstance().getStudentGrade(index, id);
         if (grade == null) {

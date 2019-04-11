@@ -14,7 +14,7 @@ import java.util.Collection;
 @Path("students/{index}/grades")
 public class StudentGradesCollection {
     @GET
-    @Produces("application/json")
+    @Produces(MediaType.APPLICATION_JSON)
     public Collection<Grade> get(@PathParam("index") long index) {
         Collection<Grade> grades = Store.getInstance().getStudentGrades(index);
         if (grades == null) {

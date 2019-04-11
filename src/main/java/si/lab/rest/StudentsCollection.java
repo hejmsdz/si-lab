@@ -11,7 +11,7 @@ import java.util.Collection;
 @Path("students")
 public class StudentsCollection {
     @GET
-    @Produces("application/json")
+    @Produces(MediaType.APPLICATION_JSON)
     public Collection<Student> get() {
         return Store.getInstance().getStudents();
     }
