@@ -1,7 +1,18 @@
 package si.lab.model;
 
+import org.glassfish.jersey.linking.Binding;
+import org.glassfish.jersey.linking.InjectLink;
+import org.glassfish.jersey.linking.InjectLinks;
+import si.lab.rest.StudentGradesCollection;
+import si.lab.rest.StudentResource;
+import si.lab.rest.StudentsCollection;
+
+import javax.ws.rs.core.Link;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,6 +24,23 @@ public class Student {
     private String lastName;
     private Date birthDate;
     private List<Grade> grades;
+
+    @InjectLinks({
+            @InjectLink(
+                    resource = StudentResource.class,
+                    bindings = {@Binding(name="index", value="${instance.index}")},
+                    rel = "self"),
+            @InjectLink(
+                    resource = StudentsCollection.class,
+                    rel = "parent"),
+            @InjectLink(resource = StudentGradesCollection.class,
+                    bindings = {@Binding(name="index", value="${instance.index}")},
+                    rel = "grades")
+    })
+    @XmlElement(name="link")
+    @XmlElementWrapper(name = "links")
+    @XmlJavaTypeAdapter(Link.JaxbAdapter.class)
+    List<Link> links;
 
     public Student() {
         grades = new ArrayList<>();

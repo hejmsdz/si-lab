@@ -2,6 +2,7 @@ package si.lab;
 
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
+import org.glassfish.jersey.linking.DeclarativeLinkingFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import si.lab.rest.*;
 
@@ -17,8 +18,11 @@ public class Main {
                 CoursesCollection.class,
                 CourseResource.class,
                 StudentGradesCollection.class,
-                StudentGradeResource.class
+                StudentGradeResource.class,
+                DeclarativeLinkingFeature.class,
+                ExceptionMapper.class
         );
+
         HttpServer server = GrizzlyHttpServerFactory.createHttpServer(baseUri, config);
     }
 }
