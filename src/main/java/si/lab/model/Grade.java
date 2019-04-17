@@ -1,18 +1,58 @@
 package si.lab.model;
 
+import org.glassfish.jersey.linking.Binding;
+import org.glassfish.jersey.linking.InjectLink;
+import org.glassfish.jersey.linking.InjectLinks;
+import si.lab.rest.CourseResource;
+import si.lab.rest.StudentGradeResource;
+import si.lab.rest.StudentGradesCollection;
+import si.lab.rest.StudentResource;
 import si.lab.storage.Store;
 
+import javax.ws.rs.core.Link;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Date;
+import java.util.List;
 
 @XmlRootElement
 public class Grade {
     private int id;
     private Score score;
     private Date insertedAt;
+    @XmlTransient
     private Course course;
+    @XmlTransient
     private Student student;
+
+    @InjectLinks({
+            @InjectLink(resource = StudentGradeResource.class,
+                    bindings = {
+                        @Binding(name="index", value="${instance.student.index}"),
+                        @Binding(name="id", value="${instance.id}")
+                    },
+                    rel = "self"),
+            @InjectLink(
+                    resource = StudentResource.class,
+                    bindings = {@Binding(name="index", value="${instance.student.index}")},
+                    rel = "student"),
+            @InjectLink(
+                    resource = StudentGradesCollection.class,
+                    bindings = {@Binding(name="index", value="${instance.student.index}")},
+                    rel = "parent"),
+            @InjectLink(
+                    resource = CourseResource.class,
+                    bindings = {@Binding(name="id", value="${instance.course.id}")},
+                    rel = "course")
+
+    })
+    @XmlElement(name="link")
+    @XmlElementWrapper(name = "links")
+    @XmlJavaTypeAdapter(Link.JaxbAdapter.class)
+    List<Link> links;
 
     public Grade() {
     }
@@ -49,6 +89,7 @@ public class Grade {
         this.insertedAt = insertedAt;
     }
 
+    @XmlTransient
     public Course getCourse() {
         return course;
     }
@@ -57,6 +98,7 @@ public class Grade {
         this.course = course;
     }
 
+    @XmlTransient
     public Student getStudent() {
         return student;
     }
