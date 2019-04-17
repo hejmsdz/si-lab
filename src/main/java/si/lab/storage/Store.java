@@ -101,10 +101,12 @@ public class Store {
     }
 
     public Grade addStudentGrade(long index, Grade grade) {
-        Collection<Grade> grades = getStudentGrades(index);
-        if (grades == null || grade.getCourse() == null) {
+        Student student = getStudent(index);
+        if (student == null || grade.getCourse() == null) {
             return null;
         }
+        Collection<Grade> grades = student.getGrades();
+        grade.setStudent(student);
         grade.setId(grades.size() + 1);
         grades.add(grade);
         return grade;
@@ -146,10 +148,10 @@ public class Store {
         addCourse(course2);
         addCourse(course3);
 
-        addStudentGrade(student1, new Grade(1, Grade.Score.B, new Date(), course1));
-        addStudentGrade(student1, new Grade(2, Grade.Score.A, new Date(), course1));
-        addStudentGrade(student2, new Grade(3, Grade.Score.D, new Date(), course2));
-        addStudentGrade(student3, new Grade(4, Grade.Score.C, new Date(), course2));
-        addStudentGrade(student3, new Grade(5, Grade.Score.F, new Date(), course3));
+        addStudentGrade(student1, new Grade(1, Grade.Score.B, new Date(), course1, null));
+        addStudentGrade(student1, new Grade(2, Grade.Score.A, new Date(), course1, null));
+        addStudentGrade(student2, new Grade(3, Grade.Score.D, new Date(), course2, null));
+        addStudentGrade(student3, new Grade(4, Grade.Score.C, new Date(), course2, null));
+        addStudentGrade(student3, new Grade(5, Grade.Score.F, new Date(), course3, null));
     }
 }

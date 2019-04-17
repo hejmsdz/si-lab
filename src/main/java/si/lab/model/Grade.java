@@ -12,15 +12,17 @@ public class Grade {
     private Score score;
     private Date insertedAt;
     private Course course;
+    private Student student;
 
     public Grade() {
     }
 
-    public Grade(int id, Score score, Date insertedAt, Course course) {
+    public Grade(int id, Score score, Date insertedAt, Course course, Student student) {
         this.id = id;
         this.score = score;
         this.insertedAt = insertedAt;
         this.course = course;
+        this.student = student;
     }
 
     public int getId() {
@@ -53,6 +55,14 @@ public class Grade {
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     public int getCourseId() {
