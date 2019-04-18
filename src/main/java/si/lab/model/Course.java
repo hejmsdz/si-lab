@@ -1,8 +1,12 @@
 package si.lab.model;
 
+import org.bson.types.ObjectId;
 import org.glassfish.jersey.linking.Binding;
 import org.glassfish.jersey.linking.InjectLink;
 import org.glassfish.jersey.linking.InjectLinks;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Transient;
 import si.lab.rest.CourseResource;
 import si.lab.rest.CoursesCollection;
 
@@ -13,8 +17,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.List;
 
+@Entity
 @XmlRootElement
 public class Course {
+    @Id
+    private ObjectId _id;
     private int id;
     private String name;
     private String teacher;
@@ -31,6 +38,7 @@ public class Course {
     @XmlElement(name="link")
     @XmlElementWrapper(name = "links")
     @XmlJavaTypeAdapter(Link.JaxbAdapter.class)
+    @Transient
     List<Link> links;
 
     public Course() {
