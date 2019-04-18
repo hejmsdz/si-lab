@@ -7,7 +7,7 @@ import si.lab.rest.CourseResource;
 import si.lab.rest.StudentGradeResource;
 import si.lab.rest.StudentGradesCollection;
 import si.lab.rest.StudentResource;
-import si.lab.storage.Store;
+import si.lab.storage.MemoryStore;
 
 import javax.ws.rs.core.Link;
 import javax.xml.bind.annotation.XmlElement;
@@ -112,7 +112,7 @@ public class Grade {
     }
 
     public void setCourseId(int id) {
-        this.course = Store.getInstance().getCourse(id);
+        this.course = MemoryStore.getInstance().getCourse(id);
     }
 
     public enum Score {

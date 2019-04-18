@@ -6,16 +6,16 @@ import si.lab.model.Student;
 
 import java.util.*;
 
-public class Store {
-    private static Store ourInstance = new Store();
+public class MemoryStore {
+    private static MemoryStore ourInstance = new MemoryStore();
     private Map<Long, Student> students;
     private List<Course> courses;
 
-    public static Store getInstance() {
+    public static MemoryStore getInstance() {
         return ourInstance;
     }
 
-    private Store() {
+    private MemoryStore() {
         students = new HashMap<>();
         courses = new ArrayList<>();
         seed();

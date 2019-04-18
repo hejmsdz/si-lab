@@ -1,7 +1,7 @@
 package si.lab.rest;
 
 import si.lab.model.Course;
-import si.lab.storage.Store;
+import si.lab.storage.MemoryStore;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -15,13 +15,13 @@ public class CoursesCollection {
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Collection<Course> get() {
-        return Store.getInstance().getCourses();
+        return MemoryStore.getInstance().getCourses();
     }
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response create(Course course) {
-        Store.getInstance().addCourse(course);
+        MemoryStore.getInstance().addCourse(course);
         URI location = UriBuilder.fromResource(CourseResource.class)
                 .resolveTemplate("id", course.getId())
                 .build();

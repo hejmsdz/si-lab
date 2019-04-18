@@ -1,7 +1,7 @@
 package si.lab.rest;
 
 import si.lab.model.Student;
-import si.lab.storage.Store;
+import si.lab.storage.MemoryStore;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
@@ -13,13 +13,13 @@ public class StudentsCollection {
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Collection<Student> get() {
-        return Store.getInstance().getStudents();
+        return MemoryStore.getInstance().getStudents();
     }
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response create(Student student) {
-        Store.getInstance().addStudent(student);
+        MemoryStore.getInstance().addStudent(student);
         URI location = UriBuilder.fromResource(StudentResource.class)
                 .resolveTemplate("index", student.getIndex())
                 .build();
