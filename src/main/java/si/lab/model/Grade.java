@@ -1,8 +1,13 @@
 package si.lab.model;
 
+import org.bson.types.ObjectId;
 import org.glassfish.jersey.linking.Binding;
 import org.glassfish.jersey.linking.InjectLink;
 import org.glassfish.jersey.linking.InjectLinks;
+import org.mongodb.morphia.annotations.Embedded;
+import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Reference;
+import org.mongodb.morphia.annotations.Transient;
 import si.lab.rest.CourseResource;
 import si.lab.rest.StudentGradeResource;
 import si.lab.rest.StudentGradesCollection;
@@ -19,13 +24,16 @@ import java.util.Date;
 import java.util.List;
 
 @XmlRootElement
+@Embedded
 public class Grade {
     private int id;
     private Score score;
     private Date insertedAt;
     @XmlTransient
+    @Reference
     private Course course;
     @XmlTransient
+    @Transient
     private Student student;
 
     @InjectLinks({
@@ -52,6 +60,7 @@ public class Grade {
     @XmlElement(name="link")
     @XmlElementWrapper(name = "links")
     @XmlJavaTypeAdapter(Link.JaxbAdapter.class)
+    @Transient
     List<Link> links;
 
     public Grade() {
@@ -115,21 +124,4 @@ public class Grade {
         this.course = MemoryStore.getInstance().getCourse(id);
     }
 
-    public enum Score {
-        A(5),
-        B(4.5),
-        C(4),
-        D(3.5),
-        E(3),
-        F(2);
-        private double value;
-
-        Score(double value) {
-            this.value = value;
-        }
-
-        double getValue() {
-            return this.value;
-        }
-    }
 }

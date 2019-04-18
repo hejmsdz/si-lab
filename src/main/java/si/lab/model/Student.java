@@ -4,10 +4,7 @@ import org.bson.types.ObjectId;
 import org.glassfish.jersey.linking.Binding;
 import org.glassfish.jersey.linking.InjectLink;
 import org.glassfish.jersey.linking.InjectLinks;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Reference;
-import org.mongodb.morphia.annotations.Transient;
+import org.mongodb.morphia.annotations.*;
 import si.lab.rest.StudentGradesCollection;
 import si.lab.rest.StudentResource;
 import si.lab.rest.StudentsCollection;
@@ -31,7 +28,7 @@ public class Student {
     private String firstName;
     private String lastName;
     private Date birthDate;
-    @Transient
+    @Embedded
     private List<Grade> grades;
 
     @InjectLinks({
