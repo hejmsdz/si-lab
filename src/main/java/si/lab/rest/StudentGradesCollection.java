@@ -1,7 +1,7 @@
 package si.lab.rest;
 
 import si.lab.model.Grade;
-import si.lab.storage.MemoryStore;
+import si.lab.storage.MongoStore;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -15,7 +15,7 @@ public class StudentGradesCollection {
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Collection<Grade> get(@PathParam("index") long index) {
-        Collection<Grade> grades = MemoryStore.getInstance().getStudentGrades(index);
+        Collection<Grade> grades = MongoStore.getInstance().getStudentGrades(index);
         if (grades == null) {
             throw new NotFoundException();
         }
@@ -25,7 +25,7 @@ public class StudentGradesCollection {
     @POST
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response create(@PathParam("index") long index, Grade grade) {
-        Grade insertedGrade = MemoryStore.getInstance().addStudentGrade(index, grade);
+        Grade insertedGrade = MongoStore.getInstance().addStudentGrade(index, grade);
         if (insertedGrade == null) {
             throw new NotFoundException();
         }

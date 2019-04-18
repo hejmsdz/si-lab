@@ -1,7 +1,7 @@
 package si.lab.rest;
 
 import si.lab.model.Student;
-import si.lab.storage.MemoryStore;
+import si.lab.storage.MongoStore;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -11,7 +11,7 @@ public class StudentResource {
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Student get(@PathParam("index") long index) {
-        Student student = MemoryStore.getInstance().getStudent(index);
+        Student student = MongoStore.getInstance().getStudent(index);
         if (student == null) {
             throw new NotFoundException();
         }
@@ -22,7 +22,7 @@ public class StudentResource {
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Student update(@PathParam("index") long index, Student newStudent) {
-        Student student = MemoryStore.getInstance().updateStudent(index, newStudent);
+        Student student = MongoStore.getInstance().updateStudent(index, newStudent);
         if (student == null) {
             throw new NotFoundException();
         }
@@ -32,7 +32,7 @@ public class StudentResource {
     @DELETE
     public void delete(@PathParam("index") long index) {
 
-        if (!MemoryStore.getInstance().deleteStudent(index)) {
+        if (!MongoStore.getInstance().deleteStudent(index)) {
             throw new NotFoundException();
         }
     }

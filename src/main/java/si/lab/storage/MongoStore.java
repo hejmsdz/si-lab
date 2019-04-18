@@ -3,6 +3,7 @@ package si.lab.storage;
 import com.mongodb.MongoClient;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
+import org.mongodb.morphia.query.Query;
 import si.lab.model.Course;
 import si.lab.model.Grade;
 import si.lab.model.Student;
@@ -31,12 +32,12 @@ public class MongoStore implements Store {
 
     @Override
     public Collection<Student> getStudents() {
-        return null;
+        return datastore.createQuery(Student.class).asList();
     }
 
     @Override
     public Collection<Course> getCourses() {
-        return null;
+        return datastore.createQuery(Course.class).asList();
     }
 
     @Override
@@ -81,7 +82,10 @@ public class MongoStore implements Store {
 
     @Override
     public Collection<Grade> getStudentGrades(long index) {
-        return null;
+        return datastore.find(Student.class)
+                .filter("index", index)
+                .get()
+                .getGrades();
     }
 
     @Override
