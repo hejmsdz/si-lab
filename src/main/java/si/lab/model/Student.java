@@ -21,6 +21,9 @@ import java.util.List;
 
 @XmlRootElement
 @Entity
+@Indexes({
+        @Index(fields = { @Field("index") }, options = @IndexOptions(unique = true))
+})
 public class Student {
     @Id
     private ObjectId _id;
