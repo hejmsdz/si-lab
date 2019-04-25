@@ -4,12 +4,17 @@ import si.lab.model.Course;
 import si.lab.model.Grade;
 import si.lab.model.Score;
 import si.lab.model.Student;
+import si.lab.storage.MongoStore;
 import si.lab.storage.Store;
 
 import java.util.Date;
 
 public class Seed {
-    public static void seed(Store store) {
+    public static void seed(MongoStore store) {
+        if (!store.getStudents().isEmpty() || !store.getCourses().isEmpty()) {
+            return;
+        }
+
         Student student1 = new Student(534816, "Herminia", "Schowalter", new Date(1957, 11, 11));
         Student student2 = new Student(534817, "Antwan", "Reinger", new Date(1951, 5, 19));
         Student student3 = new Student(534818, "Sharon" ,"Gleason", new Date(1946, 4, 15));

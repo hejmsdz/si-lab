@@ -28,7 +28,7 @@ public class MongoStore {
         datastore = morphia.createDatastore(new MongoClient(), this.DB_NAME);
         datastore.ensureIndexes();
 
-        //Seed.seed(this);
+        Seed.seed(this);
     }
 
     public Collection<Student> getStudents() {
