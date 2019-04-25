@@ -12,6 +12,7 @@ import si.lab.model.Student;
 import si.lab.utils.Seed;
 
 import java.util.Collection;
+import java.util.regex.Pattern;
 
 public class MongoStore {
     private final String DB_NAME = "sintLab";
@@ -48,6 +49,17 @@ public class MongoStore {
 
     public Collection<Student> getStudents() {
         return datastore.createQuery(Student.class).asList();
+    }
+
+    public Collection<Student> getStudents(String firstName, String lastName) {
+        Query<Student> q = datastore.createQuery(Student.class);
+        if (firstName != null) {
+            q.filter("firstName", Pattern.compile(firstName, Pattern.CASE_INSENSITIVE));
+        }
+        if (lastName != null) {
+            q.filter("lastName", Pattern.compile(lastName, Pattern.CASE_INSENSITIVE));
+        }
+        return q.asList();
     }
 
     public Collection<Course> getCourses() {

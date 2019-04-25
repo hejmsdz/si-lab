@@ -23,7 +23,7 @@ import java.util.List;
 @XmlRootElement
 @Entity
 @Indexes({
-        @Index(fields = { @Field("index") }, options = @IndexOptions(unique = true))
+        @org.mongodb.morphia.annotations.Index(fields = { @Field("index") }, options = @IndexOptions(unique = true))
 })
 public class Student {
     @Id
