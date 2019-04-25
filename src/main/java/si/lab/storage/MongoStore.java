@@ -48,11 +48,22 @@ public class MongoStore {
     }
 
     public Course updateCourse(String id, Course newCourse) {
-        return null;
+        Course course = getCourse(id);
+        if (course == null) {
+            return null;
+        }
+        course.setName(newCourse.getName());
+        course.setTeacher(newCourse.getTeacher());
+        datastore.save(course);
+        return course;
     }
 
     public boolean deleteCourse(String id) {
-        return false;
+        Course course = getCourse(id);
+        if (course == null) {
+            return false;
+        }
+        return datastore.delete(course).getN() == 1;
     }
 
     public void addStudent(Student student) {
@@ -60,11 +71,23 @@ public class MongoStore {
     }
 
     public Student updateStudent(long index, Student newStudent) {
-        return null;
+        Student student = getStudent(index);
+        if (student == null) {
+            return null;
+        }
+        student.setFirstName(newStudent.getFirstName());
+        student.setLastName(newStudent.getLastName());
+        student.setBirthDate(newStudent.getBirthDate());
+        datastore.save(student);
+        return student;
     }
 
     public boolean deleteStudent(long index) {
-        return false;
+        Student student = getStudent(index);
+        if (student == null) {
+            return false;
+        }
+        return datastore.delete(student).getN() == 1;
     }
 
     public Student getStudent(long index) {

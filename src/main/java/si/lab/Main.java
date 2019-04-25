@@ -19,8 +19,8 @@ public class Main {
                 CourseResource.class,
                 StudentGradesCollection.class,
                 StudentGradeResource.class,
-                DeclarativeLinkingFeature.class,
-                ExceptionMapper.class
+                DeclarativeLinkingFeature.class
+//                ExceptionMapper.class
         );
 
         HttpServer server = GrizzlyHttpServerFactory.createHttpServer(baseUri, config);
