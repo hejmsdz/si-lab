@@ -27,7 +27,7 @@ public class MongoStore implements Store {
         datastore = morphia.createDatastore(new MongoClient(), this.DB_NAME);
         datastore.ensureIndexes();
 
-        Seed.seed(this);
+//        Seed.seed(this);
     }
 
     @Override
@@ -77,15 +77,16 @@ public class MongoStore implements Store {
 
     @Override
     public Student getStudent(long index) {
-        return null;
+        return datastore.find(Student.class)
+                .filter("index", index)
+                .get();
     }
 
     @Override
     public Collection<Grade> getStudentGrades(long index) {
-        return datastore.find(Student.class)
-                .filter("index", index)
-                .get()
-                .getGrades();
+        Student student = getStudent(index);
+        if (student == null) return null;
+        return student.getGrades();
     }
 
     @Override
