@@ -7,6 +7,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.net.URI;
 import java.util.Collection;
+import java.util.Date;
 
 @Path("students")
 public class StudentsCollection {
@@ -14,9 +15,10 @@ public class StudentsCollection {
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Collection<Student> get(
             @QueryParam("firstName") String firstName,
-            @QueryParam("lastName") String lastName
+            @QueryParam("lastName") String lastName,
+            @QueryParam("birthDate") Date birthDate
     ) {
-        return MongoStore.getInstance().getStudents(firstName, lastName);
+        return MongoStore.getInstance().getStudents(firstName, lastName, birthDate);
     }
 
     @POST

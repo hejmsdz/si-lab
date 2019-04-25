@@ -12,6 +12,7 @@ import si.lab.model.Student;
 import si.lab.utils.Seed;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 public class MongoStore {
@@ -51,13 +52,16 @@ public class MongoStore {
         return datastore.createQuery(Student.class).asList();
     }
 
-    public Collection<Student> getStudents(String firstName, String lastName) {
+    public Collection<Student> getStudents(String firstName, String lastName, Date birthDate) {
         Query<Student> q = datastore.createQuery(Student.class);
         if (firstName != null) {
             q.filter("firstName", Pattern.compile(firstName, Pattern.CASE_INSENSITIVE));
         }
         if (lastName != null) {
             q.filter("lastName", Pattern.compile(lastName, Pattern.CASE_INSENSITIVE));
+        }
+        if (birthDate != null) {
+            q.filter("birthDate", birthDate);
         }
         return q.asList();
     }

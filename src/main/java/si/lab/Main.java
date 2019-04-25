@@ -5,6 +5,7 @@ import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.linking.DeclarativeLinkingFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import si.lab.rest.*;
+import si.lab.utils.DateParamConverterProvider;
 
 import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
@@ -22,6 +23,7 @@ public class Main {
                 DeclarativeLinkingFeature.class
 //                ExceptionMapper.class
         );
+        config.register(new DateParamConverterProvider("yyyy-MM-dd"));
 
         HttpServer server = GrizzlyHttpServerFactory.createHttpServer(baseUri, config);
     }
