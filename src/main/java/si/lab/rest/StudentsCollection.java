@@ -16,9 +16,10 @@ public class StudentsCollection {
     public Collection<Student> get(
             @QueryParam("firstName") String firstName,
             @QueryParam("lastName") String lastName,
-            @QueryParam("birthDate") Date birthDate
+            @QueryParam("birthDate") Date birthDate,
+            @QueryParam("birthDateComparison") int birthDateComparison
     ) {
-        return MongoStore.getInstance().getStudents(firstName, lastName, birthDate);
+        return MongoStore.getInstance().getStudents(firstName, lastName, birthDate, birthDateComparison);
     }
 
     @POST

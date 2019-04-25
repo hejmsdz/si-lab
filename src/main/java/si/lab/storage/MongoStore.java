@@ -52,7 +52,7 @@ public class MongoStore {
         return datastore.createQuery(Student.class).asList();
     }
 
-    public Collection<Student> getStudents(String firstName, String lastName, Date birthDate) {
+    public Collection<Student> getStudents(String firstName, String lastName, Date birthDate, int birthDateComparison) {
         Query<Student> q = datastore.createQuery(Student.class);
         if (firstName != null) {
             q.filter("firstName", Pattern.compile(firstName, Pattern.CASE_INSENSITIVE));
@@ -61,7 +61,13 @@ public class MongoStore {
             q.filter("lastName", Pattern.compile(lastName, Pattern.CASE_INSENSITIVE));
         }
         if (birthDate != null) {
-            q.filter("birthDate", birthDate);
+            String field = "birthDate";
+            if (birthDateComparison < 0) {
+                field += " <";
+            } else if (birthDateComparison > 0) {
+                field += " >";
+            }
+            q.filter(field, birthDate);
         }
         return q.asList();
     }
