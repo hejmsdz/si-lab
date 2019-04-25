@@ -10,7 +10,7 @@ import javax.ws.rs.core.MediaType;
 public class CourseResource {
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Course get(@PathParam("id") int id) {
+    public Course get(@PathParam("id") String id) {
         Course course = MongoStore.getInstance().getCourse(id);
         if (course == null) {
             throw new NotFoundException();
@@ -21,7 +21,7 @@ public class CourseResource {
     @PUT
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Course update(@PathParam("id") int id, Course newCourse) {
+    public Course update(@PathParam("id") String id, Course newCourse) {
         Course course = MongoStore.getInstance().updateCourse(id, newCourse);
         if (course == null) {
             throw new NotFoundException();
@@ -30,7 +30,7 @@ public class CourseResource {
     }
 
     @DELETE
-    public void delete(@PathParam("id") int id) {
+    public void delete(@PathParam("id") String id) {
         if (!MongoStore.getInstance().deleteCourse(id)) {
             throw new NotFoundException();
         }

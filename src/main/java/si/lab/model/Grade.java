@@ -5,14 +5,13 @@ import org.glassfish.jersey.linking.Binding;
 import org.glassfish.jersey.linking.InjectLink;
 import org.glassfish.jersey.linking.InjectLinks;
 import org.mongodb.morphia.annotations.Embedded;
-import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Reference;
 import org.mongodb.morphia.annotations.Transient;
 import si.lab.rest.CourseResource;
 import si.lab.rest.StudentGradeResource;
 import si.lab.rest.StudentGradesCollection;
 import si.lab.rest.StudentResource;
-import si.lab.storage.MemoryStore;
+import si.lab.storage.MongoStore;
 
 import javax.ws.rs.core.Link;
 import javax.xml.bind.annotation.XmlElement;
@@ -116,12 +115,12 @@ public class Grade {
         this.student = student;
     }
 
-    public int getCourseId() {
+    public ObjectId getCourseId() {
         return course.getId();
     }
 
-    public void setCourseId(int id) {
-        this.course = MemoryStore.getInstance().getCourse(id);
+    public void setCourseId(ObjectId id) {
+        this.course = MongoStore.getInstance().getCourse(id.toHexString());
     }
 
 }

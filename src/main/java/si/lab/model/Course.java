@@ -9,11 +9,13 @@ import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Transient;
 import si.lab.rest.CourseResource;
 import si.lab.rest.CoursesCollection;
+import si.lab.utils.ObjectIdJaxbAdapter;
 
 import javax.ws.rs.core.Link;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.List;
 
@@ -21,8 +23,8 @@ import java.util.List;
 @XmlRootElement
 public class Course {
     @Id
+    @XmlTransient
     private ObjectId _id;
-    private int id;
     private String name;
     private String teacher;
 
@@ -44,18 +46,17 @@ public class Course {
     public Course() {
     }
 
-    public Course(int id, String name, String teacher) {
-        this.id = id;
+    public Course(int _id, String name, String teacher) {
         this.name = name;
         this.teacher = teacher;
     }
 
-    public int getId() {
-        return id;
+    @XmlJavaTypeAdapter(ObjectIdJaxbAdapter.class)
+    public ObjectId getId() {
+        return _id;
     }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setId(ObjectId id) {
+        this._id = id;
     }
 
     public String getName() {

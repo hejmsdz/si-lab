@@ -1,6 +1,7 @@
 package si.lab.storage;
 
 import com.mongodb.MongoClient;
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.query.Query;
@@ -11,7 +12,7 @@ import si.lab.utils.Seed;
 
 import java.util.Collection;
 
-public class MongoStore implements Store {
+public class MongoStore {
     private final String DB_NAME = "sintLab";
     private final Datastore datastore;
 
@@ -30,76 +31,62 @@ public class MongoStore implements Store {
 //        Seed.seed(this);
     }
 
-    @Override
     public Collection<Student> getStudents() {
         return datastore.createQuery(Student.class).asList();
     }
 
-    @Override
     public Collection<Course> getCourses() {
         return datastore.createQuery(Course.class).asList();
     }
 
-    @Override
-    public Course getCourse(int id) {
-        return null;
+    public Course getCourse(String id) {
+        return datastore.get(Course.class, new ObjectId(id));
     }
 
-    @Override
     public void addCourse(Course course) {
         datastore.save(course);
     }
 
-    @Override
-    public Course updateCourse(int id, Course newCourse) {
+    public Course updateCourse(String id, Course newCourse) {
         return null;
     }
 
-    @Override
-    public boolean deleteCourse(int id) {
+    public boolean deleteCourse(String id) {
         return false;
     }
 
-    @Override
     public void addStudent(Student student) {
         datastore.save(student);
     }
 
-    @Override
     public Student updateStudent(long index, Student newStudent) {
         return null;
     }
 
-    @Override
     public boolean deleteStudent(long index) {
         return false;
     }
 
-    @Override
     public Student getStudent(long index) {
         return datastore.find(Student.class)
                 .filter("index", index)
                 .get();
     }
 
-    @Override
     public Collection<Grade> getStudentGrades(long index) {
         Student student = getStudent(index);
         if (student == null) return null;
         return student.getGrades();
     }
 
-    @Override
     public Grade getStudentGrade(long index, int id) {
         return null;
     }
 
-    @Override
     public Grade addStudentGrade(long index, Grade grade) {
         return null;
     }
 
-    @Override
     public Grade addStudentGrade(Student student, Grade grade) {
         grade.setStudent(student);
         student.getGrades().add(grade);
@@ -107,12 +94,10 @@ public class MongoStore implements Store {
         return grade;
     }
 
-    @Override
     public boolean deleteStudentGrade(long index, int id) {
         return false;
     }
 
-    @Override
     public Grade updateStudentGrade(long index, int id, Grade newGrade) {
         return null;
     }
