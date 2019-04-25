@@ -7,6 +7,7 @@ import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.query.Query;
 import si.lab.model.Course;
 import si.lab.model.Grade;
+import si.lab.model.Index;
 import si.lab.model.Student;
 import si.lab.utils.Seed;
 
@@ -29,6 +30,20 @@ public class MongoStore {
         datastore.ensureIndexes();
 
         Seed.seed(this);
+    }
+
+    public long getNextIndex() {
+        Index index = datastore.findAndModify(datastore.createQuery(Index.class), datastore.createUpdateOperations(Index.class).inc("index", 1));
+        if (index == null) {
+            return -1;
+        }
+        return index.index;
+    }
+
+    public void initSequence(long initIndex) {
+        Index index = new Index();
+        index.index = initIndex;
+        datastore.save(index);
     }
 
     public Collection<Student> getStudents() {
@@ -79,6 +94,7 @@ public class MongoStore {
     }
 
     public void addStudent(Student student) {
+        student.setIndex(getNextIndex());
         datastore.save(student);
     }
 

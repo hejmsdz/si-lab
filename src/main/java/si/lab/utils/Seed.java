@@ -15,9 +15,11 @@ public class Seed {
             return;
         }
 
-        Student student1 = new Student(534816, "Herminia", "Schowalter", new Date(1957, 11, 11));
-        Student student2 = new Student(534817, "Antwan", "Reinger", new Date(1951, 5, 19));
-        Student student3 = new Student(534818, "Sharon" ,"Gleason", new Date(1946, 4, 15));
+        store.initSequence(1200);
+
+        Student student1 = new Student(0, "Herminia", "Schowalter", new Date(1957, 11, 11));
+        Student student2 = new Student(0, "Antwan", "Reinger", new Date(1951, 5, 19));
+        Student student3 = new Student(0, "Sharon" ,"Gleason", new Date(1946, 4, 15));
 
         store.addStudent(student1);
         store.addStudent(student2);
