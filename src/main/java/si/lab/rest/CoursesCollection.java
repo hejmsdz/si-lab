@@ -14,8 +14,11 @@ import java.util.Collection;
 public class CoursesCollection {
     @GET
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Collection<Course> get() {
-        return MongoStore.getInstance().getCourses();
+    public Collection<Course> get(
+            @QueryParam("name") String name,
+            @QueryParam("teacher") String teacher
+    ) {
+        return MongoStore.getInstance().getCourses(name, teacher);
     }
 
     @POST

@@ -70,6 +70,17 @@ public class MongoStore {
         return datastore.createQuery(Course.class).asList();
     }
 
+    public Collection<Course> getCourses(String name, String teacher) {
+        Query<Course> q = datastore.createQuery(Course.class);
+        if (name != null) {
+            q.filter("name", Pattern.compile(name, Pattern.CASE_INSENSITIVE));
+        }
+        if (teacher != null) {
+            q.filter("teacher", Pattern.compile(teacher, Pattern.CASE_INSENSITIVE));
+        }
+        return q.asList();
+    }
+
     public Course getCourse(String id) {
         return datastore.get(Course.class, new ObjectId(id));
     }
