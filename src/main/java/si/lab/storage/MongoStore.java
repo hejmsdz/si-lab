@@ -28,7 +28,7 @@ public class MongoStore {
         datastore = morphia.createDatastore(new MongoClient(), this.DB_NAME);
         datastore.ensureIndexes();
 
-//        Seed.seed(this);
+        //Seed.seed(this);
     }
 
     public Collection<Student> getStudents() {
@@ -63,6 +63,18 @@ public class MongoStore {
         if (course == null) {
             return false;
         }
+        ObjectId oid = new ObjectId(id);
+        System.out.println("delete course "+id +" = " + oid);
+        datastore.createQuery(Student.class).forEach(student -> {
+            System.out.println("student " + student.getIndex());
+            if (student.getGrades().removeIf(grade -> {
+                System.out.println("grade" + grade + "; " + grade.getCourseId() + ".." + grade.getCourse());
+                return grade.getCourseId().equals(oid);
+            })) {
+                System.out.println("deleted some");
+                datastore.save(student);
+            }
+        });
         return datastore.delete(course).getN() == 1;
     }
 
@@ -103,22 +115,31 @@ public class MongoStore {
     }
 
     public Grade getStudentGrade(long index, int id) {
-        return null;
+        Student student = getStudent(index);
+        if (student == null) return null;
+        if (student.getGrades().size() <= id) return null;
+        return student.getGrades().get(id);
     }
 
     public Grade addStudentGrade(long index, Grade grade) {
-        return null;
+        return addStudentGrade(getStudent(index), grade);
     }
 
     public Grade addStudentGrade(Student student, Grade grade) {
         grade.setStudent(student);
+        grade.setId(student.getGrades().size());
         student.getGrades().add(grade);
         datastore.save(student);
         return grade;
     }
 
     public boolean deleteStudentGrade(long index, int id) {
-        return false;
+        Student student = getStudent(index);
+        if (student == null) return false;
+        if (student.getGrades().size() <= id) return false;
+        student.getGrades().remove(id);
+        datastore.save(student);
+        return true;
     }
 
     public Grade updateStudentGrade(long index, int id, Grade newGrade) {
