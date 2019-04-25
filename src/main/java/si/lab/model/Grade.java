@@ -12,6 +12,7 @@ import si.lab.rest.StudentGradeResource;
 import si.lab.rest.StudentGradesCollection;
 import si.lab.rest.StudentResource;
 import si.lab.storage.MongoStore;
+import si.lab.utils.ObjectIdJaxbAdapter;
 
 import javax.ws.rs.core.Link;
 import javax.xml.bind.annotation.XmlElement;
@@ -115,6 +116,7 @@ public class Grade {
         this.student = student;
     }
 
+    @XmlJavaTypeAdapter(ObjectIdJaxbAdapter.class)
     public ObjectId getCourseId() {
         return course.getId();
     }
